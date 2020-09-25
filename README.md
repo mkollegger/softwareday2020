@@ -8,9 +8,9 @@ Demos und Infos für den Software Day 2020
 
 ### Session Infos
 
-- Folien zur Session [Link]()
-- Video zur Session [Link]()
-- Infos zu regionaler Software [LINK]()
+- Folien zur Session [Link](https://github.com/mkollegger/softwareday2020/blob/master/_files/Swd2020.pdf)
+- Video zur Session [Link](https://bissfotec-my.sharepoint.com/:v:/g/personal/mike_fotec_at/EXrHVzQGIGVFs053go-H4OIBbxUdiYLFyLCDOOFuv65_lw?e=GZsk0D)
+- Infos zu regionaler Software [LINK](https://github.com/mkollegger/softwareday2020/blob/master/_files/Textinput_Regionale_Software.pdf)
 
 ### FOTEC und Speaker
 
