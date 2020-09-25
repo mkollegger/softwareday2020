@@ -1,22 +1,29 @@
-﻿using PropertyChanged;
+﻿// (C) 2020 FOTEC Forschungs- und Technologietransfer GmbH
+// Das Forschungsunternehmen der Fachhochschule Wiener Neustadt
+// 
+// Kontakt biss@fotec.at / www.fotec.at
+// 
+// Erstversion vom 24.09.2020 14:38
+// Entwickler      Michael Kollegger
+// Projekt         swd2020
+
 using System;
 using System.ComponentModel;
-using System.Diagnostics.Tracing;
 using System.Threading;
 using System.Threading.Tasks;
+using PropertyChanged;
 
 namespace sharedcode
 {
     public class DomoData : INotifyPropertyChanged, IDisposable
     {
-        public int Counter {get;set;}
-        private object _readLock = new object();
-        private Task _worker;
-        private CancellationTokenSource _workerToker = new CancellationTokenSource();
+        private readonly object _readLock = new object();
+        private readonly Task _worker;
+        private readonly CancellationTokenSource _workerToker = new CancellationTokenSource();
 
         public DomoData()
         {
-            _worker = new Task(async()=> 
+            _worker = new Task(async () =>
             {
                 do
                 {
@@ -26,6 +33,10 @@ namespace sharedcode
             });
             _worker.Start();
         }
+
+        #region Properties
+
+        public int Counter { get; set; }
 
         [DependsOn(nameof(Counter))]
         public string Data
@@ -39,11 +50,17 @@ namespace sharedcode
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Interface Implementations
 
         public void Dispose()
         {
             _workerToker.Cancel();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
     }
 }

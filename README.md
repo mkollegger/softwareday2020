@@ -10,6 +10,7 @@ Demos und Infos für den Software Day 2020
 
 - Folien zur Session [Link]()
 - Video zur Session [Link]()
+- Infos zu regionaler Software [LINK]()
 
 ### FOTEC und Speaker
 
@@ -23,4 +24,4 @@ Demos und Infos für den Software Day 2020
 
 ### Tools
 
-- Visual Studio Preview () [Link](https://visualstudio.microsoft.com/de/vs/preview/)
+- Visual Studio Preview [Link](https://visualstudio.microsoft.com/de/vs/preview/)

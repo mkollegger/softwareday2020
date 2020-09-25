@@ -1,23 +1,20 @@
-﻿using sharedcode;
+﻿// (C) 2020 FOTEC Forschungs- und Technologietransfer GmbH
+// Das Forschungsunternehmen der Fachhochschule Wiener Neustadt
+// 
+// Kontakt biss@fotec.at / www.fotec.at
+// 
+// Erstversion vom 24.09.2020 16:04
+// Entwickler      Michael Kollegger
+// Projekt         swd2020
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using sharedcode;
 
 namespace DesktopApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -27,6 +24,10 @@ namespace DesktopApp
             DataContext = this;
         }
 
+        #region Properties
+
         public DomoData Data { get; set; } = new DomoData();
+
+        #endregion
     }
 }
