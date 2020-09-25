@@ -1,0 +1,68 @@
+# BISS Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet restore
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: 'cf382ab6-ea55-43ac-86b9-2db39f34933d'
+
+- task: DotNetCoreCLI@2
+  displayName: Build BISS.DC.* and DCHelper
+  inputs:
+    command: 'build'
+    projects: |
+      **/Biss.DC.*.csproj
+      **/DcHelper.csproj
+
+- task: PublishSymbols@2
+  displayName: Indexing an publishing Symols
+  inputs:
+    SearchPattern: '**/bin/**/*.pdb'
+    SymbolServerType: 'TeamServices'
+
+- task: PowerShell@2
+  displayName: 'Generate Version Number'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/beta'))
+  inputs:
+    filePath: 'BuildNumber.ps1'
+    arguments: '$(System.DefaultWorkingDirectory)\Biss.Dc.Core\Biss.Dc.Core.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack Biss.Dc.Core'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/beta'))
+  inputs:
+    command: pack
+    packagesToPack: '**/Biss.Dc.Core.csproj'
+    nobuild: true
+    versioningScheme: byEnvVar
+    versionEnvVar: biss.build
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack Biss.Dc.Core'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    command: pack
+    packagesToPack: '**/Biss.Dc.Core.csproj'
+    nobuild: true
+
+- task: NuGetCommand@2
+  displayName: 'Upload Nugets'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'cf382ab6-ea55-43ac-86b9-2db39f34933d'
+    allowPackageConflicts: true

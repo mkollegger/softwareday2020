@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <!-- Package Infos -->
+    <Product>Biss Data Connector</Product>
+    <Description>DC-Client</Description>
+    <Company>FOTEC Forschungs- und Technologietransfer GmbH</Company>
+    <Copyright>(C) 2009-2020 FOTEC Forschungs- und Technologietransfer GmbH</Copyright>
+    <Authors>BISS</Authors>
+    <PackageProjectUrl>https://dev.azure.com/fotec/BISS-ProjectTemplates</PackageProjectUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>BISS SDK</PackageTags>
+    <Version>1.0.0</Version>
+    <PackageIcon>nugetImage.png</PackageIcon>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>V1.0.0 - First Release</PackageReleaseNotes>
+
+    <Nullable>Enable</Nullable>
+
+    <!-- Build Einstellungen -->
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <SignAssembly>false</SignAssembly>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!-- Source Link https://github.com/dotnet/sourcelink -->
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <!-- Leider wird snupkg (noch) nicht von Azure DevOps Artifacts unterstützt (Stand 22.08.2020) -->
+    <!--<SymbolPackageFormat>snupkg</SymbolPackageFormat>-->
+    <!-- Work-Around - mit in nuget packen! -->
+    <!--<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="nugetImage.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
